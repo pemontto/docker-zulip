@@ -92,3 +92,19 @@ services:
       nofile:
         soft: 40000
         hard: 50000
+
+  zulip-bot.local:
+    image: 'zulip-bot'
+    restart: unless-stopped
+    environment:
+      DEBUG: 'True'
+    #   HOSTNAME: zulip-bot
+    build:
+      context: zulip-bot
+      args:
+        # Change this if you want to use a different python version
+        PYTHON_VERSION: 3.7
+    volumes:
+      - '/opt/docker/zulip/zulip-bot:/data:rw'
+    ports:
+      - '5002'
